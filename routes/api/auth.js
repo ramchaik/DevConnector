@@ -45,7 +45,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email }).lean().exec();
+      let user = await User.findOne({ email }).exec();
 
       if (!user) {
         return res

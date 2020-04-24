@@ -20,7 +20,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "users",
       },
     },
   ],
@@ -28,7 +28,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "users",
       },
       text: {
         type: String,
@@ -41,13 +41,13 @@ const PostSchema = new Schema({
       },
       date: {
         type: Date,
-        default: Data.now,
+        default: Date.now,
       },
     },
   ],
   date: {
     type: Date,
-    default: Data.now,
+    default: Date.now,
   },
 });
 
