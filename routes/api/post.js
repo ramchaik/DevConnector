@@ -86,6 +86,38 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 /**
+ * @route   DELETE api/posts/:id
+ * @desc    Delete a post
+ * @access  Private
+ */
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).exec();
+
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    // Check on User
+    if (post.user.toString() !== req.user.id) {
+      console.log("post.user.toString()", post.user.toString());
+      return res.status(401).json({ msg: "User not authorized." });
+    }
+
+    await post.remove();
+
+    res.json({ msg: "Post removed" });
+  } catch (error) {
+    console.error(error.message);
+
+    if (error.kind == "ObjectId" || error.message.includes("ObjectId")) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+/**
  * @route   PUT api/posts/like/:id
  * @desc    Like a post
  * @access  Private
@@ -194,7 +226,7 @@ router.post(
 );
 
 /**
- * @route   POST api/posts/comment/:id/:comment_id
+ * @route   DELETE api/posts/comment/:id/:comment_id
  * @desc    Delete comment on a post
  * @access  Private
  */
