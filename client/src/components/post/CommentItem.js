@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -29,7 +29,7 @@ const CommentItem = ({
           type='button'
           className='btn btn-danger'
         >
-          <i className="fas fa-times"></i>
+          <i className='fas fa-times'></i>
         </button>
       )}
     </div>
